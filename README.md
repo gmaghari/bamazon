@@ -1,8 +1,8 @@
-<<<<<<< HEAD
-# bamazon# Week 12 Homework Assignment
+
+# Week 12 Homework Assignment
 =======
 # Week 12 Homework Assignment
->>>>>>> d73532dc4a6b3717cfe96f7dcb7f7c5010ec8f9b
+
 ------------------------------
 ## Node.js & MySql Store
 
