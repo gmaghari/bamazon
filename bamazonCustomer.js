@@ -17,44 +17,42 @@ connection.connect(function(err) {
     customerOrder();
 });
 
-// View table 
+// View inventory table 
 var viewTable = function(){
     connection.query("SELECT * FROM inventory", function(err, results){
         if (err) throw err;
         console.log("----------------------------------");
         for (var i = 0; i < results.length; i++) {
-            console.log("| " + results[i].item_id + " | " + results[i].product_name + " | " + results[i].price + " |");
+            console.log("| " + results[i].item_id + " | " + results[i].product_name + " | $" + results[i].price + " |");
         }
         console.log("----------------------------------");
     });
 }
 
-
+//Customer request item from inventory
 var customerOrder = function(){
     connection.query("SELECT * FROM inventory", function(err, results){
         if (err) throw err;
-        // Prompting user for the item_id
         inquirer.prompt([
             {
                 type: "list",
                 name: "choice",
                 choices: function() {
-                    // Filling choices from item_id
                     var choiceArray = [];
                     for (var i = 0; i < results.length; i++) {
                         choiceArray.push(results[i].item_id.toString());
                     }
                     return choiceArray;
                 },
-                message: "What is the ID of the product you would like to buy?"
+                message: "What is the ID of the item you would like to order?"
             },
             {
                 type: "input",
                 name: "quantity",
-                message: "How many would you like?"
+                message: "Enter the quantity you would like to order"
             }
         ]).then(function(answer) {
-            // Grabbing item info from customer choice
+            // Grabbing item chosen from inventory
             var chosenItem;
             for (var i = 0; i < results.length; i++) {
                 if (parseInt(results[i].item_id) === parseInt(answer.choice)){
@@ -65,18 +63,18 @@ var customerOrder = function(){
             if (parseInt(chosenItem.stock_quantity) >= parseInt(answer.quantity)) {
                 var newAmt = chosenItem.stock_quantity - answer.quantity;
                 
-                // Enough stock, so update db and let the user know
+                // Inventory check for stock
                 connection.query("UPDATE inventory SET ? WHERE ?", [{
                     stock_quantity: newAmt
                 }, {
                     item_id: chosenItem.item_id
                 }], function(error) {
                     if (error) throw err;
-                    console.log("Your order was placed!");
+                    console.log("Thank you for your order");
                 });
             }
             else {
-                // Not enough in stock
+                // If not enough in stock
                 console.log("Sorry - insufficient quantity of your item. Try again!");
             }
         });
