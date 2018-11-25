@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # bamazon# Week 12 Homework Assignment
+=======
+# Week 12 Homework Assignment
+>>>>>>> d73532dc4a6b3717cfe96f7dcb7f7c5010ec8f9b
 ------------------------------
 ## Node.js & MySql Store
 
@@ -27,4 +31,8 @@ If the item is in stock, your order should be confirmed
 
 Should there be insufficient stock to fill the order, you should get the following message
 
+<<<<<<< HEAD
 ![picture_alt](https://github.com/gmaghari/bamazon/blob/master/images/insufficientstock.png)
+=======
+![picture_alt](https://github.com/gmaghari/bamazon/blob/master/images/insufficientstock.png)
+>>>>>>> d73532dc4a6b3717cfe96f7dcb7f7c5010ec8f9b
