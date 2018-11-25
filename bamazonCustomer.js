@@ -17,9 +17,9 @@ connection.connect(function(err) {
     customerOrder();
 });
 
-// View everything in table "products"
+// View table 
 var viewTable = function(){
-    connection.query("SELECT * FROM products", function(err, results){
+    connection.query("SELECT * FROM inventory", function(err, results){
         if (err) throw err;
         console.log("----------------------------------");
         for (var i = 0; i < results.length; i++) {
@@ -31,7 +31,7 @@ var viewTable = function(){
 
 
 var customerOrder = function(){
-    connection.query("SELECT * FROM products", function(err, results){
+    connection.query("SELECT * FROM inventory", function(err, results){
         if (err) throw err;
         // Prompting user for the item_id
         inquirer.prompt([
@@ -66,7 +66,7 @@ var customerOrder = function(){
                 var newAmt = chosenItem.stock_quantity - answer.quantity;
                 
                 // Enough stock, so update db and let the user know
-                connection.query("UPDATE products SET ? WHERE ?", [{
+                connection.query("UPDATE inventory SET ? WHERE ?", [{
                     stock_quantity: newAmt
                 }, {
                     item_id: chosenItem.item_id
